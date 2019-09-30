@@ -1,11 +1,17 @@
 <script>
-let todoText = "";
-export let onAdd;
-let onClickAdd = (e) => {
-	onAdd(todoText);
-	todoText = "";
-	return false;
-}
+	import { onMount } from 'svelte';
+	let todoText = "";
+	let inputEle;
+	export let onAdd;
+	let onClickAdd = (e) => {
+		onAdd(todoText);
+		todoText = "";
+		return false;
+	}
+
+	onMount(() => {
+    inputEle.focus();
+  });
 </script>
 
 <style>
@@ -19,7 +25,7 @@ div {
 
 <div>
 	<form on:submit|preventDefault={onClickAdd}>
-		<input bind:value={todoText} type="text"/>
+		<input bind:this={inputEle} bind:value={todoText} type="text"/>
 		<button>Add</button>
 	</form>
 </div>
